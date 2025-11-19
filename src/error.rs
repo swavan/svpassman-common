@@ -45,7 +45,7 @@ pub enum PassManFile{
     #[error("Config file does not exist {0}")]
     FileDoesNotExist(String),
 
-    #[error("Unable to decode string fron give file path")]
+    #[error("Unable to decode string from give file path")]
     FilePathDecode,
 
     #[error("Unable to open file because of {0}")]
@@ -194,7 +194,7 @@ pub enum PassManTokenError {
     Expired,
 
     #[error("Unable to validate token")]
-    InvalidorMissingClaim,
+    InvalidatorMissingClaim,
 
     #[error("Token being used to early")]
     TokenUsedTooEarly,
@@ -224,7 +224,7 @@ pub enum PassManDatabaseError {
     Execution(String),
 
     #[error("Database is not initialized")]
-    Uninialize,
+    Uninitialize,
 
     #[error("Connection error {0}")]
     UnableToConnect(String),
@@ -331,7 +331,7 @@ pub enum PassManErrorKind {
     FormatEncryption(String),
 
     TokenExpired(String),
-    TokenInvalidorMissingClaim(String),
+    TokenInvalidatorMissingClaim(String),
     TokenTokenUsedTooEarly(String),
     TokenMissingToken(String),
 
@@ -347,7 +347,7 @@ pub enum PassManErrorKind {
     DatabaseCommit(String),
     DatabaseMigration(String),
     DatabaseExecution(String),
-    DatabaseUninialize(String),
+    DatabaseUninitialize(String),
     DatabaseUnableToConnect(String),
     DatabaseUnknown(String),
 
@@ -399,7 +399,7 @@ impl serde::Serialize for PassManError {
         },
         PassManError::Token(v) => match v {
             PassManTokenError::Expired => PassManErrorKind::TokenExpired(error_message),
-            PassManTokenError::InvalidorMissingClaim => PassManErrorKind::TokenInvalidorMissingClaim(error_message),
+            PassManTokenError::InvalidatorMissingClaim => PassManErrorKind::TokenInvalidatorMissingClaim(error_message),
             PassManTokenError::TokenUsedTooEarly => PassManErrorKind::TokenTokenUsedTooEarly(error_message),
             PassManTokenError::MissingToken => PassManErrorKind::TokenMissingToken(error_message),
         },
@@ -417,7 +417,7 @@ impl serde::Serialize for PassManError {
             PassManDatabaseError::Commit(_) => PassManErrorKind::DatabaseCommit(error_message),
             PassManDatabaseError::Migration(_) => PassManErrorKind::DatabaseMigration(error_message),
             PassManDatabaseError::Execution(_) => PassManErrorKind::DatabaseExecution(error_message),
-            PassManDatabaseError::Uninialize => PassManErrorKind::DatabaseUninialize(error_message),
+            PassManDatabaseError::Uninitialize => PassManErrorKind::DatabaseUninitialize(error_message),
             PassManDatabaseError::UnableToConnect(_) => PassManErrorKind::DatabaseUnableToConnect(error_message),
             PassManDatabaseError::Unknown(_) => PassManErrorKind::DatabaseUnknown(error_message),
         },
@@ -433,7 +433,7 @@ impl Display for PassManErrorKind {
         PassManErrorKind::Unknown => write!(f, "Unknown"),
         PassManErrorKind::From(val) => write!(f, "{}", val),
         PassManErrorKind::TokenExpired(val) => write!(f, "{}", val),
-        PassManErrorKind::TokenInvalidorMissingClaim(val) => write!(f, "{}", val),
+        PassManErrorKind::TokenInvalidatorMissingClaim(val) => write!(f, "{}", val),
         PassManErrorKind::TokenTokenUsedTooEarly(val) => write!(f, "{}", val),
         PassManErrorKind::TokenMissingToken(val) =>  write!(f, "{}", val),
         PassManErrorKind::AuthUserNotFound(val) =>  write!(f, "{}", val),
@@ -456,7 +456,7 @@ impl Display for PassManErrorKind {
         PassManErrorKind::DatabaseCommit(val) =>  write!(f, "{}", val),
         PassManErrorKind::DatabaseMigration(val) =>  write!(f, "{}", val),
         PassManErrorKind::DatabaseExecution(val) =>  write!(f, "{}", val),
-        PassManErrorKind::DatabaseUninialize(val) =>  write!(f, "{}", val),
+        PassManErrorKind::DatabaseUninitialize(val) =>  write!(f, "{}", val),
         PassManErrorKind::DatabaseUnableToConnect(val) =>  write!(f, "{}", val),
         PassManErrorKind::DatabaseUnknown(val) =>  write!(f, "{}", val),
         PassManErrorKind::RequestHeader(val) => write!(f, "{}", val),
@@ -499,7 +499,7 @@ impl PassManErrorKind {
             PassManErrorKind::FormatEncryption(v) => PassManError::Format(PassManFormat::Encryption(v.to_string())),
 
             PassManErrorKind::TokenExpired(_) => PassManError::Token(PassManTokenError::Expired),
-            PassManErrorKind::TokenInvalidorMissingClaim(_) => PassManError::Token(PassManTokenError::MissingToken),
+            PassManErrorKind::TokenInvalidatorMissingClaim(_) => PassManError::Token(PassManTokenError::MissingToken),
             PassManErrorKind::TokenTokenUsedTooEarly(_) => PassManError::Token(PassManTokenError::TokenUsedTooEarly),
             PassManErrorKind::TokenMissingToken(_) => PassManError::Token(PassManTokenError::MissingToken),
 
@@ -515,7 +515,7 @@ impl PassManErrorKind {
             PassManErrorKind::DatabaseCommit(v) => PassManError::Database(PassManDatabaseError::Commit(v.to_string())),
             PassManErrorKind::DatabaseMigration(v) => PassManError::Database(PassManDatabaseError::Migration(v.to_string())),
             PassManErrorKind::DatabaseExecution(v) => PassManError::Database(PassManDatabaseError::Execution(v.to_string())),
-            PassManErrorKind::DatabaseUninialize(_) => PassManError::Database(PassManDatabaseError::Uninialize),
+            PassManErrorKind::DatabaseUninitialize(_) => PassManError::Database(PassManDatabaseError::Uninitialize),
             PassManErrorKind::DatabaseUnableToConnect(v) => PassManError::Database(PassManDatabaseError::UnableToConnect(v.to_string())),
             PassManErrorKind::DatabaseUnknown(v) => PassManError::Database(PassManDatabaseError::Unknown(v.to_string())),
 
